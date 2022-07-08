@@ -1,4 +1,4 @@
-let words = [
+let songs = [
     {
         title: "doll",
         src: "../../audio/doll.mp3",
