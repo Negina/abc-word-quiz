@@ -91,7 +91,7 @@ button{
 .grid .correct{
     background-color: rgba(46, 188, 20, 0.92);
     color: white;
-    border: 8px solid #E8E8E8;
+    border: 8px solid #3CB371;
 }
 
 .grid .highlight{
@@ -108,7 +108,7 @@ button{
 .grid .incorrect{
     background-color: rgb(217, 9, 9);
     color: white;
-    border: 8px solid #E8E8E8;
+    border: 8px solid #DC143C;
 
 }
 

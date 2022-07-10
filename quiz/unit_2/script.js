@@ -1,4 +1,4 @@
-let words = [
+let songs = [
     {
         title: "doll",
         src: "../../audio/doll.mp3",
@@ -73,7 +73,7 @@ let playerContainer = document.querySelector(".playerContainer"),
     let rightAnswers = 0;
     let wrongAnswers = 0;
 
-let shuffledWords = shuffle(words);
+let shuffledSongs = shuffle(songs);
     currentIndex = 0;
 
 function shuffle(array){
@@ -81,15 +81,18 @@ function shuffle(array){
 }
 
 function start(){
-        player.src = shuffledWords[0].src;
+        player.src = shuffledSongs[0].src;
         player.play();
     }
 
 function showOptions(){
-    shuffle(shuffledWords[currentIndex].options).forEach((option) => {
+    shuffle(shuffledSongs[currentIndex].options).forEach((option) => {
         const image = new Image(100, 100);
         image.classList.add("img");
         image.src = option.src;
+//        const button = document.createElement("button");
+//        button.style.backgroundImage = "url(option.src)";
+//        button.innerHTML = '<img width="100" height="100" src=' + option.src + '>' + option.name;
         if(option.correct){
             image.dataset.correct = true;
 
@@ -109,41 +112,26 @@ function disableButtons(buttons){
         buttons[i].disabled = true;
     }
 }
-
-
 function selectAnswer(e){
     let button = e.target;
-
-    var header = document.getElementById("grid");
-    var images = header.getElementsByClassName("img");
-    for (var i = 0; i < images.length; i++) {
-      images[i].addEventListener("click", function() {
-        var current = document.getElementsByClassName("highlight");
-        if (current.length > 0) {
-          current[0].className = current[0].className.replace(" highlight", "");
-        }
-        this.className += " highlight";
-      });
-    }
-
-    if (button.dataset.correct){
+    if(button.dataset.correct){
         rightAnswers ++;
         currentIndex ++;
         next.classList.remove("hide");
         disableButtons(grid.children);
-        button.classList.toggle("highlight");
+        button.classList.add("correct");
     } else{
         wrongAnswers ++;
         currentIndex ++;
         next.classList.remove("hide");
         disableButtons(grid.children);
-        button.classList.toggle("highlight");
+        button.classList.add("incorrect");
     }
 }
-function nextWord(){
-    if(shuffledWords.length > currentIndex){
+function nextSong(){
+    if(shuffledSongs.length > currentIndex){
         eraseData();
-        player.src = shuffledWords[currentIndex].src;
+        player.src = shuffledSongs[currentIndex].src;
         showOptions();
     } else {
         finish();
@@ -151,7 +139,7 @@ function nextWord(){
 }
 
 function finish(){
-    rightCount.innerText = rightAnswers + " out of " + words.length;
+    rightCount.innerText = rightAnswers + " out of " + songs.length;
 //    player.src = "../../audio/andantino.mp3";
     playerContainer.classList.add("hide");
     eraseData();
@@ -159,4 +147,4 @@ function finish(){
 }
 window.onload = start;
 showOptions();
-next.addEventListener("click", nextWord);
+next.addEventListener("click", nextSong);
